@@ -46,8 +46,20 @@ const checkSession = function (req, res, next) {
 
 app.use(checkSession);
 
+function sayHello() {
+  console.log("redirects to login")
+  res.send(sayHello)  
+}
+
+
+
 app.get("/", (req, res) => {
-  res.send("Welcome");
+    res.write(
+      "<h1>Welcome</h1> " +
+        "craig" +
+        "<button onClick={sayHello}>Default</button>" 
+    );
+    res.end();
 });
 
 app.get("/login", (req, res) => {
