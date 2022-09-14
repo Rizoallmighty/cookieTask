@@ -46,20 +46,20 @@ const checkSession = function (req, res, next) {
 
 app.use(checkSession);
 
-function sayHello() {
-  console.log("redirects to login")
-  res.send(sayHello)  
-}
-
-
+// function sayHello() {
+//   console.log("redirects to login")
+//   res.send(sayHello)
+// }
 
 app.get("/", (req, res) => {
+  if (req.cookies.username == undefined) {
     res.write(
-      "<h1>Welcome</h1> " +
-        req.cookies.username +
-        "<button onClick={sayHello}>Default</button>" 
+      "<h1>Welcome </h1><h2>you little shit</h2><button onClick={sayHello}>Default</button>"
     );
-    res.end();
+  } else {
+    res.write("<h1>Welcome</h1> " + "<h2>" + req.cookies.username + "</h2>");
+  }
+  res.end();
 });
 
 app.get("/login", (req, res) => {
@@ -67,7 +67,6 @@ app.get("/login", (req, res) => {
 });
 
 app.post("/auth_user", (req, res) => {
-
   console.log(req.body.username);
   if (req.body.username == "craig" && req.body.password == "test") {
     res.cookie("username", req.body.username, {
