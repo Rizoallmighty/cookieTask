@@ -11,6 +11,7 @@ const port = process.env.PORT || 8080;
 let activeSessions = [];
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 app.use(
   session({
@@ -46,7 +47,7 @@ const checkSession = function (req, res, next) {
 app.use(checkSession);
 
 app.get("/", (req, res) => {
-  res.send("hello");
+  res.send("Welcome");
 });
 
 app.get("/login", (req, res) => {
@@ -54,8 +55,13 @@ app.get("/login", (req, res) => {
 });
 
 app.post("/auth_user", (req, res) => {
-  console.log(req.body);
+
+  console.log(req.body.username);
   if (req.body.username == "craig" && req.body.password == "test") {
+    res.cookie("username", req.body.username, {
+      maxAge: 3000,
+      httpOnly: true,
+    });
     if (!sessionLookup(req.session.id)) {
       activeSessions.push(req.session.id);
     }
