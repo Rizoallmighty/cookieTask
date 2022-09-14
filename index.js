@@ -56,7 +56,7 @@ function sayHello() {
 app.get("/", (req, res) => {
     res.write(
       "<h1>Welcome</h1> " +
-        "craig" +
+        req.cookies.username +
         "<button onClick={sayHello}>Default</button>" 
     );
     res.end();
@@ -71,7 +71,7 @@ app.post("/auth_user", (req, res) => {
   console.log(req.body.username);
   if (req.body.username == "craig" && req.body.password == "test") {
     res.cookie("username", req.body.username, {
-      maxAge: 3000,
+      maxAge: 300000,
       httpOnly: true,
     });
     if (!sessionLookup(req.session.id)) {
