@@ -50,7 +50,7 @@ app.get("/", (req, res) => {
   if (req.cookies.username == undefined) {
     res.write(
       "<h1>Hello </h1><h2>unknown user</h2>" +
-      "<a href=/login.html>Login!</a>"
+        "<a href=/login.html><button>Login!</button></a>"
     );
   } else {
     res.write("<h1>Welcome</h1> " + "<h2>" + req.cookies.username + "</h2>");
