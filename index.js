@@ -46,15 +46,11 @@ const checkSession = function (req, res, next) {
 
 app.use(checkSession);
 
-// function sayHello() {
-//   console.log("redirects to login")
-//   res.send(sayHello)
-// }
-
 app.get("/", (req, res) => {
   if (req.cookies.username == undefined) {
     res.write(
-      "<h1>Welcome </h1><h2>you little shit</h2><button onClick={sayHello}>Default</button>"
+      "<h1>Hello </h1><h2>unknown user</h2>" +
+      "<a href=/login.html>Login!</a>"
     );
   } else {
     res.write("<h1>Welcome</h1> " + "<h2>" + req.cookies.username + "</h2>");
@@ -84,8 +80,7 @@ app.post("/auth_user", (req, res) => {
 });
 
 app.get("/main", (req, res) => {
-  res.write("<h1>MAIN</h1><p>id:" + req.session.id + "</p>");
-  res.end();
+  res.sendFile(path.join(__dirname, "/public/main.html"));
 });
 
 app.get("/account", (req, res) => {
