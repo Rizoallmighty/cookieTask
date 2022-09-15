@@ -1,12 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Main</title>
-</head>
-<body>
-    <button type="button">Change password</button>
-</body>
+  </head>
+  <body>
+    <h1>This is the main page</h1>
+    <hr />
+    <script>
+      let changePwBtn = document.getElementById("pw-btn")
+
+      function changePassword() {
+        console.log("Changed Password");
+      }
+      let changeUNBtn = document.getElementById("un-btn")
+
+      function changeUserName() {
+        console.log("Changed Name");
+      }
+    </script>
+    <button id="un-btn" type="button" onclick="changeUserName()">Change name</button>
+    <button id="pw-btn" type="button" onclick="changePassword()">Change password</button>
+  </body>
 </html>
