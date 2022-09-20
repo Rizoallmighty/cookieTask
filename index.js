@@ -2,6 +2,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const session = require("express-session");
+var data = require("./data.json")
 
 const path = require("path");
 
@@ -9,6 +10,9 @@ const app = express();
 const port = process.env.PORT || 8080;
 
 let activeSessions = [];
+var userName = data.username
+var passWord = data.password;
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -64,7 +68,7 @@ app.get("/login", (req, res) => {
 
 app.post("/auth_user", (req, res) => {
   console.log(req.body.username);
-  if (req.body.username == "craig" && req.body.password == "test") {
+  if (req.body.username == userName && req.body.password == passWord) {
     res.cookie("username", req.body.username, {
       maxAge: 300000,
       httpOnly: true,
@@ -90,4 +94,5 @@ app.get("/account", (req, res) => {
 
 app.listen(port, () => {
   console.log("Server started on port", port);
+  console.log(data);
 });
