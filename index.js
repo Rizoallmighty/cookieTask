@@ -69,7 +69,7 @@ app.get("/login", (req, res) => {
 app.post("/auth_user", (req, res) => {
   console.log(req.body.username);
   if (req.body.username == userName && req.body.password == passWord) {
-    res.cookie("username", req.body.username, {
+    res.cookie("username", req.body.username + " password:" + req.body.password,{
       maxAge: 300000,
       httpOnly: true,
     });
@@ -85,6 +85,39 @@ app.post("/auth_user", (req, res) => {
 
 app.get("/main", (req, res) => {
   res.sendFile(path.join(__dirname, "/public/main.html"));
+});
+
+app.post("/new_username", (req, res) => {
+  if (req.body.username == "one") {
+    res.write("tf, this is the same username")
+  }
+  else {
+  console.log(req.body.username)
+  res.cookie("username", req.body.username + " password:" + req.body.password, {
+    maxAge: 300000,
+    httpOnly: true,
+  });
+  res.redirect("/main")
+  }
+  res.end();
+});
+
+app.post("/new_password", (req, res) => {
+  if (req.body.password == "1") {
+    res.write("tf, this is the same password");
+  } else {
+    console.log(req.body.password);
+    res.cookie(
+      "username",
+      req.body.username + " password:" + req.body.password,
+      {
+        maxAge: 300000,
+        httpOnly: true,
+      }
+    );
+    res.redirect("/main");
+  }
+  res.end();
 });
 
 app.get("/account", (req, res) => {
